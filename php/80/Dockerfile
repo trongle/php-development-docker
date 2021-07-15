@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-LABEL maintainer tronglt
+LABEL maintainer=tronglt
 
 WORKDIR /var/www/html
 

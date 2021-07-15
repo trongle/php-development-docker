@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-LABEL maintainer tronglt
+LABEL maintainer=tronglt
 
 WORKDIR /var/www/html
 
@@ -19,16 +19,16 @@ RUN mkdir -p ~/.gnupg \
     && apt-get update
 
 # Install PHP and it's dependencies.
-RUN apt-get install -y php7.1-fpm \
-    php7.1-cli \
-    php7.1-mcrypt \
-    php7.1-gd \
-    php7.1-curl \
-    php7.1-xml \
-    php7.1-zip \
-    php7.1-mbstring \
-    php7.1-mysql \
-    php7.1-soap
+RUN apt-get install -y php7.2-fpm \
+    php7.2-cli \
+    php7.2-mcrypt \
+    php7.2-gd \
+    php7.2-curl \
+    php7.2-xml \
+    php7.2-zip \
+    php7.2-mbstring \
+    php7.2-mysql \
+    php7.2-soap
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
@@ -38,15 +38,15 @@ RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-di
     && composer self-update --1
 
 # Config PHP-FPM.
-RUN sed -i "s/pm\.max_children = .*/pm.max_children = 20/" /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -i "s/pm\.start_servers = .*/pm.start_servers = 10/" /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -i "s/pm\.min_spare_servers = .*/pm.min_spare_servers = 5/" /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -i "s/pm\.max_spare_servers = .*/pm.max_spare_servers = 10/" /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -i "s/listen = .*/listen = 0.0.0.0:9000/" /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -i 's/^;daemonize.*$/daemonize = no/g' /etc/php/7.1/fpm/php-fpm.conf \
-    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/7.1/fpm/php-fpm.conf
+RUN sed -i "s/pm\.max_children = .*/pm.max_children = 20/" /etc/php/7.2/fpm/pool.d/www.conf \
+    && sed -i "s/pm\.start_servers = .*/pm.start_servers = 10/" /etc/php/7.2/fpm/pool.d/www.conf \
+    && sed -i "s/pm\.min_spare_servers = .*/pm.min_spare_servers = 5/" /etc/php/7.2/fpm/pool.d/www.conf \
+    && sed -i "s/pm\.max_spare_servers = .*/pm.max_spare_servers = 10/" /etc/php/7.2/fpm/pool.d/www.conf \
+    && sed -i "s/listen = .*/listen = 0.0.0.0:9000/" /etc/php/7.2/fpm/pool.d/www.conf \
+    && sed -i 's/^;daemonize.*$/daemonize = no/g' /etc/php/7.2/fpm/php-fpm.conf \
+    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/7.2/fpm/php-fpm.conf
 
 RUN apt-get update
 
-CMD [ "php-fpm7.1" ]
+CMD [ "php-fpm7.2" ]
 
