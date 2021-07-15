@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 LABEL maintainer=tronglt
 
-WORKDIR /var/www/html
+WORKDIR /var/www/application
 
 # Avoid prompts when building
 ENV TZ=UTC
