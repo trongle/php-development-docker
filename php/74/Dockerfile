@@ -40,7 +40,8 @@ RUN apt-get install -y php7.4-cli \
     php7.4-fpm \
     php7.4-sqlite \
     php7.4-mongodb \ 
-    php7.4-imagick
+    php7.4-imagick \
+    php7.4-xdebug
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
@@ -55,7 +56,11 @@ RUN sed -i "s/pm\.max_children = .*/pm.max_children = 20/" /etc/php/7.4/fpm/pool
     && sed -i "s/pm\.max_spare_servers = .*/pm.max_spare_servers = 10/" /etc/php/7.4/fpm/pool.d/www.conf \
     && sed -i "s/listen = .*/listen = 0.0.0.0:9000/" /etc/php/7.4/fpm/pool.d/www.conf \
     && sed -i 's/^;daemonize.*$/daemonize = no/g' /etc/php/7.4/fpm/php-fpm.conf \
-    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/7.4/fpm/php-fpm.conf
+    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/7.4/fpm/php-fpm.conf \
+    && echo "xdebug.mode=develop,debug" >> /etc/php/7.4/mods-available/xdebug.ini && \
+    && echo "xdebug.start_with_requests=yes" >> /etc/php/7.4/mods-available/xdebug.ini && \
+    && echo "xdebug.discover_client_host=0" >> /etc/php/7.4/mods-available/xdebug.ini && \
+    && echo "xdebug.client_host=host.docker.internal" >> /etc/php/7.4/mods-available/xdebug.ini
 
 RUN apt-get update
 
