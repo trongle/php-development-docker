@@ -39,7 +39,8 @@ RUN apt-get install -y php8.0-cli \
     php8.0-redis \
     php8.0-fpm \
     php8.0-sqlite \
-    php8.0-mongodb
+    php8.0-mongodb \
+    php8.0-xdebug
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
@@ -54,7 +55,11 @@ RUN sed -i "s/pm\.max_children = .*/pm.max_children = 20/" /etc/php/8.0/fpm/pool
     && sed -i "s/pm\.max_spare_servers = .*/pm.max_spare_servers = 10/" /etc/php/8.0/fpm/pool.d/www.conf \
     && sed -i "s/listen = .*/listen = 0.0.0.0:9000/" /etc/php/8.0/fpm/pool.d/www.conf \
     && sed -i 's/^;daemonize.*$/daemonize = no/g' /etc/php/8.0/fpm/php-fpm.conf \
-    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/8.0/fpm/php-fpm.conf
+    && sed -i 's@^error_log.*$@error_log = /proc/self/fd/2@g' /etc/php/8.0/fpm/php-fpm.conf \
+    && echo "xdebug.mode=develop,debug" >> /etc/php/8.0/mods-available/xdebug.ini && \
+    && echo "xdebug.start_with_requests=yes" >> /etc/php/8.0/mods-available/xdebug.ini && \
+    && echo "xdebug.discover_client_host=0" >> /etc/php/8.0/mods-available/xdebug.ini && \
+    && echo "xdebug.client_host=host.docker.internal" >> /etc/php/8.0/mods-available/xdebug.ini
 
 RUN apt-get update
 
