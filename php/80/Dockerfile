@@ -37,7 +37,9 @@ RUN apt-get install -y php8.0-cli \
     php8.0-igbinary \
     php8.0-ldap \
     php8.0-redis \
-    php8.0-fpm
+    php8.0-fpm \
+    php8.0-sqlite \
+    php8.0-mongodb
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \

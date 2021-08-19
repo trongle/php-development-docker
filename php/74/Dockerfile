@@ -37,7 +37,10 @@ RUN apt-get install -y php7.4-cli \
     php7.4-igbinary \
     php7.4-ldap \
     php7.4-redis \
-    php7.4-fpm
+    php7.4-fpm \
+    php7.4-sqlite \
+    php7.4-mongodb \ 
+    php7.4-imagick
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \

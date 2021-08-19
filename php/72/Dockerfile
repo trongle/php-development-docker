@@ -28,7 +28,10 @@ RUN apt-get install -y php7.2-fpm \
     php7.2-zip \
     php7.2-mbstring \
     php7.2-mysql \
-    php7.2-soap
+    php7.2-soap \
+    php7.2-sqlite \
+    php7.2-mongodb \ 
+    php7.2-imagick
 
 # Install Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
