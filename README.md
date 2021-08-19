@@ -2,5 +2,4 @@
 
 ## Introduction
 
-PHP's development images for local use. Based on my daily work, so they are opinion images.
-
+PHP's development images for local use. Based on my daily work, so they are opinioned images.
